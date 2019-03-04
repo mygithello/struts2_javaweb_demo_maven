@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+		"http://struts.apache.org/dtds/struts-2.0.dtd">
+		
+<struts>
+	<!--创建报表pdf/excel=====start=================-->
+	<package name="default" extends="struts-default">
+		<action name="report" class="com.test.createpdforexcel.ReportAction" method="reportPdf">
+			 <result>test.jsp</result>
+			 <!--<result name="fail">fail.jsp</result>-->
+		</action>
+		<!--add actions here-->
+	</package>
+	<!--创建报表pdf/excel=====end=================-->
+
+	<!--导出数据至excel=====start=================-->
+	<package name="export" namespace="/" extends="struts-default">
+		<action name="exportExcle" class="com.test.exportexcel.action.ExportAction">
+			<result>success.jsp</result>
+		</action>
+
+		<action name="exportExcel" class="com.test.exportexcel.action.ExcelOperatorAction" method="export">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel,charset=ISO8859-1</param>
+				<!-- ${filename}是读取Action中属性的内容 -->
+				<param name="contentDisposition">attachment;filename=${filename}</param>
+				<!-- 输出时缓冲区的大小 -->
+				<param name="bufferSize">1024</param>
+				<!--
+                  下面参数我这里写的是excelFile（名字随便，不固定），对应的Action中要有
+                  getExcelFile方法，该方法返回的是InputStream类型
+                -->
+				<param name="inputName">excelFile</param>
+			</result>
+		</action>
+	<!--导出数据至excel=====end=================-->
+
+	<!--导出图表=====start=================-->
+
+
+
+	<!--导出图表=====start=================-->
+	</package>
+
+	<package name="default" extends="jfreechart-default">
+		<action name="reportAction" class="cn.bdqn.jfreechart.action.StudentReportAction">
+			<result type="chart">
+				<param name="width">400</param>
+				<param name="height">300</param>
+			</result>
+		</action>
+
+		<action name="reportBarPic" class="cn.bdqn.jfreechart.action.StudentReportAction" method="reportBarPic">
+			<result type="chart">
+				<param name="width">400</param>
+				<param name="height">300</param>
+			</result>
+		</action>
+
+	</package>
+</struts>

@@ -1,0 +1,9 @@
+1.生成pdf出现异常：
+但设置完成后生成报表时又报出了：
+net.sf.jasperreports.engine.JRRuntimeException: Could not load the following font :
+pdfFontName   : STSong-Light
+pdfEncoding   : UniGB-UCS2-H(Chinese Siplified)
+isPdfEmbedded : true
+的错误提示,造成这个错误的主要原因是缺少了iTextAsian.jar这个包。
+将这个包下载后放入项目的WEB-inf/lib目录后错误还是存在，经过上网资料才发现只将这个包放入项目的WEB-inf/lib目录是不够的，还要将这个包导入到ireport的classpath中，然后再用ireport重新编译生成报表，就可以正常运行了。
+
